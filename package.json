@@ -1,24 +1,30 @@
 {
   "name": "cloudmachinesfe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@uiw/react-textarea-code-editor": "^2.0.6",
     "axios": "^1.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.5",
     "react-scripts": "5.0.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",
     "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "react-scripts start",
+    "build:dev": "rm -rf build &&  npm run build && cp -r build ../CloudMachines",
+    "deploy:prod": "scp -r ../CouldMachines/*.js vmkankku@haverit.net/opt/cloudmachines/",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3002",
   "eslintConfig": {
     "extends": [
       "react-app",

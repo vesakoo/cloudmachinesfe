@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+//import { v4 as uuidv4 } from 'uuid';
 
 const RenderDeviceQue =({que,device})=>{
 
@@ -8,9 +9,9 @@ const RenderDeviceQue =({que,device})=>{
 
   return(
     <div>
-      Projects queueing up for {device}:
+      <h3>Projects waiting their turn  {device}:</h3>
       <ol>
-        {que && que.map(row =><li>{row.projectName}</li>)}
+        {que && que.map(row =><li key={row.projectId}>{row.projectName}</li>)}
       </ol>
       
     </div>

@@ -1,28 +1,28 @@
 import axios from 'axios'
-const baseUrl = 'https://robo.sukelluspaikka.fi' 
+//const baseUrl = 'https://robo.sukelluspaikka.fi' 
 //const baseUrl = 'http://localhost:3002'
 
 
 const getApi = (deviceId)=>{
-  const request = axios.get(`${baseUrl}/api/api/${deviceId}`)
+  const request = axios.get(`/api/device/${deviceId}/api`)
     return request.then(response=>response)
 }
 
 const addRow = async (row,seqId,deviceID) =>{
-  axios.post(`/device/${deviceID}/pushcmd/seqque/${seqId}`, row)
+  axios.post(`/device/${deviceID}/pushcmd/seqque/${seqId}`, {cmd: row})
 }
 
 const addSequence = async (deviceId, sequenceData) =>{
 
-  axios.post(`${baseUrl}/device/${deviceId}`,sequenceData)
+  axios.post(`/device/${deviceId}`,sequenceData)
 
   console.log('data reseived', sequenceData)
 
 }
 
-const getDevice =(deviceId) =>{
-  const request = axios.get(`${baseUrl}/api/device/${deviceId}`)
+const getExecutionQue =(deviceId) =>{
+  const request = axios.get(`/api/device/${deviceId}/stack`)
   return request.then(response=>response)
 }
 
-export default {getApi,addRow,addSequence,getDevice}
+export default {getApi,addRow,addSequence,getExecutionQue}
