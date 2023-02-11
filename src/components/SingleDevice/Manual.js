@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
  *  
  */
 
-const Manual =({commands,setCommands,deviceId})=>{
+const Manual =({commands,setCommands,deviceId,deviceApi})=>{
 
   const [currApi,setCurrApi] = useState([]);
   useEffect(() =>{

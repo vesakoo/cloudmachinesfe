@@ -57,7 +57,6 @@ const SequenceFeed =({commands,setCommands,refreshRequest,deviceId}) =>{
         </textarea>*/}
         {/*commands.length && commands.map(cmd=> <><input type="text" disabled value={cmd}/><br/></>)*/}
         <CodeEditor
-        disabled
       value={commands.join("\n")}
       language="js"
       placeholder="Please enter Actions"

@@ -20,10 +20,11 @@ import { useRef } from 'react';
 
 const RobotPage =({deviceId})=>{
 
-  const [commands,setCommands] = useState([]);
-  const [executionQue,setExecutionQue] = useState([]);
-  const [message,setMessage] = useState("");
+  const [commands,setCommands] = useState([])
+  const [executionQue,setExecutionQue] = useState([])
   const [deviceDescription,setDeviceDescription] =useState({})
+  const [robotApi,setRobotApi] = useState({})
+  const [message,setMessage] = useState("")
   const[executingAction,setExecutingAction] =useState('')
   
   const ws = useRef(null);
@@ -41,12 +42,19 @@ const RobotPage =({deviceId})=>{
       setDeviceDescription(responce.data)
       console.log('dataa', responce.data)
     })
+
+    sequenceService.getApi(deviceId)
+    .then(responce => 
+      setRobotApi(responce.data)
+    )
+
     //ws.current = new WebSocket("wss://robo.sukelluspaikka.fi");
     ws.current = new WebSocket(
       process.env.NODE_ENV==='development'
         ?"ws://localhost:8082"
         :"wss://robo.sukelluspaikka.fi/wss"
     );
+
 
     ws.current.onmessage = e => {
       const message = JSON.parse(e.data);
@@ -79,7 +87,7 @@ const RobotPage =({deviceId})=>{
     )
   }
 
-
+  if (Object.keys(deviceDescription).length ===0) return(<div>Loading...</div>)
 
   return (
     <div className="Container">
@@ -123,17 +131,22 @@ const RobotPage =({deviceId})=>{
               refreshRequest={refreshRequest}
               deviceId={deviceId}
             />
+            {deviceDescription && 
+              deviceDescription.supportedModes &&
+              deviceDescription.supportedModes.find(val=>val==='manual') &&
             <Manual 
               commands={commands} 
               setCommands = {setCommands}
               deviceId={deviceId}
-            />
+              deviceApi ={robotApi} 
+            />}
           </div>
           <div className="col-sm-8">
             <RenderApi 
               commands={commands} 
               setCommands = {setCommands}
               deviceId={deviceId}
+              deviceApi = {robotApi}
             /> 
           </div>
         </div>

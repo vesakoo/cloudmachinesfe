@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
 import devicesService from '../services/devices'
+import {
+  BrowserRouter,
+  Routes, Route, Link
+} from 'react-router-dom'
 
-const RobotList = ()=>{
-  const [robots, setRobots] = useState([])
+const RobotList = ({robots})=>{
+  /*const [robots, setRobots] = useState([])
 
   useEffect(()=>{
     devicesService.getDeviceList()
@@ -11,28 +15,34 @@ const RobotList = ()=>{
       console.log('resp',responce)
     })
 
-  },[])
+  },[])*/
+
  
   return(
     <div>
+      
       <header className="App-header">
       <h1>Robot list</h1>
       </header>
-      <div>
-      <ul className="media-list">
-        {robots.length>0 && robots.map(robo => 
-          <li className="media" key={robo.deviceId}>
-            <div className="media-left">
-              <img src={robo.image}  style={{ width: '150px', }} alt=""/>
-            </div>
-            <div className="media-body">
-                <h4 className="media-heading"> {robo.name}</h4>
-            </div>
-          </li>
-        )}
-      </ul>
-      </div>
+      <nav ClassName="Navbar NavbarInverse">
+        <div ClassName="ContainerFluid">
+          <ul className="nav NavbarNav">
+            {robots.length>0 && robots.map(robo => 
+              <li  key={robo.deviceId} className="navItem" style={{marginLeft :'30px', marginTop: '30px'}}>
+                  <div>
+                  <Link to={`/robot/${robo.deviceId}`}>
+                     <img src={robo.image}  style={{ width: '150px', }} alt="" /> <br/>
+                     {robo.name}
+                  </Link>
+                  </div>
+              </li>
+            )}
+          </ul>
+        </div>
+      </nav>
     </div>
+   
+
   )
 }
 export default RobotList
